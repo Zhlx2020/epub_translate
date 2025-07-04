@@ -325,9 +325,9 @@ So you are close to reaching the limit. You have to choose your own value, there
         type=str,
         help="""--retranslate "$translated_filepath" "file_name_in_epub" "start_str" "end_str"(optional)
         Retranslate from start_str to end_str's tag:
-        python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'test_books/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which' 'This kind of thing is not a good symptom. Obviously'
+        python3 "make_book.py" --book_name "testbooks/animal_farm.epub" --retranslate 'testbooks/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which' 'This kind of thing is not a good symptom. Obviously'
         Retranslate start_str's tag:
-        python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'test_books/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which'
+        python3 "make_book.py" --book_name "testbooks/animal_farm.epub" --retranslate 'testbooks/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which'
 """,
     )
     parser.add_argument(

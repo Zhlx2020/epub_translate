@@ -74,4 +74,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: epub_output
-          path: "test_books/lemo_bilingual.epub"
+          path: "testbooks/lemo_bilingual.epub"

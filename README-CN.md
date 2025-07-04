@@ -17,10 +17,10 @@ bilingual_book_maker 是一个 AI 翻译工具，使用 ChatGPT 帮助用户制�
 
 ```shell
 pip install -r requirements.txt
-python3 make_book.py --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
+python3 make_book.py --book_name testbooks/animal_farm.epub --openai_key ${openai_key} --test
 或
 pip install -U bbook_maker
-bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
+bbook --book_name testbooks/animal_farm.epub --openai_key ${openai_key} --test
 ```
 
 ## 翻译服务
@@ -34,7 +34,7 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   使用 DeepL 封装的 api 进行翻译，需要付费。[DeepL Translator](https://rapidapi.com/splintPRO/api/dpl-translator) 来获得 token
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model deepl --deepl_key ${deepl_key}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model deepl --deepl_key ${deepl_key}
   ```
 
 * DeepL free
@@ -42,7 +42,7 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   使用 DeepL free
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model deeplfree
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model deeplfree
   ```
 
 * Claude
@@ -50,37 +50,37 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   使用 [Claude](https://console.anthropic.com/docs) 模型进行翻译
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model claude --claude_key ${claude_key}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model claude --claude_key ${claude_key}
   ```
 
 * 谷歌翻译
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model google
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model google
   ```
 
 * 彩云小译
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model caiyun --caiyun_key ${caiyun_key}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model caiyun --caiyun_key ${caiyun_key}
   ```
 
 * Gemini
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model gemini --gemini_key ${gemini_key}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model gemini --gemini_key ${gemini_key}
   ```
 
 * 腾讯交互翻译
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model tencentransmart
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model tencentransmart
   ```
 
 * [xAI](https://x.ai)
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model xai --xai_key ${xai_key}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model xai --xai_key ${xai_key}
   ```
 
 * [Ollama](https://github.com/ollama/ollama)
@@ -89,7 +89,7 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   如果 ollama server 不运行在本地，使用 `--api_base http://x.x.x.x:port/v1` 指向 ollama server 地址
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --ollama_model ${ollama_model_name}
+  python3 make_book.py --book_name testbooks/animal_farm.epub --ollama_model ${ollama_model_name}
   ```
 
 * [Groq](https://console.groq.com/keys)
@@ -97,7 +97,7 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   GroqCloud 当前支持的模型可以查看[Supported Models](https://console.groq.com/docs/models)
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --groq_key [your_key] --model groq --model_list llama3-8b-8192
+  python3 make_book.py --book_name testbooks/animal_farm.epub --groq_key [your_key] --model groq --model_list llama3-8b-8192
   ```
 
 ## 使用说明
@@ -125,7 +125,7 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   手动中断后，加入命令可以从之前中断的位置继续执行。
 
   ```shell
-  python3 make_book.py --book_name test_books/animal_farm.epub --model google --resume
+  python3 make_book.py --book_name testbooks/animal_farm.epub --model google --resume
   ```
 
 - `--translate-tags`
@@ -200,13 +200,13 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
   - 重新翻译，从 start_str 到 end_str 的标记:
 
   ```shell
-  python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'test_books/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which' 'This kind of thing is not a good symptom. Obviously'
+  python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'testbooks/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which' 'This kind of thing is not a good symptom. Obviously'
   ```
 
   - 重新翻译, 从start_str 的标记开始:
 
   ```shell
-  python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'test_books/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which'
+  python3 "make_book.py" --book_name "test_books/animal_farm.epub" --retranslate 'testbooks/animal_farm_bilingual.epub' 'index_split_002.html' 'in spite of the present book shortage which'
   ```
 
 ### 示范用例
@@ -215,46 +215,46 @@ bbook --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
 
 ```shell
 # 如果你想快速测一下
-python3 make_book.py --book_name test_books/animal_farm.epub --openai_key ${openai_key} --test
+python3 make_book.py --book_name testbooks/animal_farm.epub --openai_key ${openai_key} --test
 
 # 或翻译完整本书
-python3 make_book.py --book_name test_books/animal_farm.epub --openai_key ${openai_key} --language zh-hans
+python3 make_book.py --book_name testbooks/animal_farm.epub --openai_key ${openai_key} --language zh-hans
 
 # Or translate the whole book using Gemini
-python3 make_book.py --book_name test_books/animal_farm.epub --gemini_key ${gemini_key} --model gemini
+python3 make_book.py --book_name testbooks/animal_farm.epub --gemini_key ${gemini_key} --model gemini
 
 # 指定环境变量来略过 --openai_key
 export OPENAI_API_KEY=${your_api_key}
 
 # Use the DeepL model with Japanese
-python3 make_book.py --book_name test_books/animal_farm.epub --model deepl --deepl_key ${deepl_key} --language ja
+python3 make_book.py --book_name testbooks/animal_farm.epub --model deepl --deepl_key ${deepl_key} --language ja
 
 # Use the Claude model with Japanese
-python3 make_book.py --book_name test_books/animal_farm.epub --model claude --claude_key ${claude_key} --language ja
+python3 make_book.py --book_name testbooks/animal_farm.epub --model claude --claude_key ${claude_key} --language ja
 
 # Use the CustomAPI model with Japanese
-python3 make_book.py --book_name test_books/animal_farm.epub --model customapi --custom_api ${custom_api} --language ja
+python3 make_book.py --book_name testbooks/animal_farm.epub --model customapi --custom_api ${custom_api} --language ja
 
 # Translate contents in <div> and <p>
-python3 make_book.py --book_name test_books/animal_farm.epub --translate-tags div,p
+python3 make_book.py --book_name testbooks/animal_farm.epub --translate-tags div,p
 
 # 修改prompt
-python3 make_book.py --book_name test_books/animal_farm.epub --prompt prompt_template_sample.txt
+python3 make_book.py --book_name testbooks/animal_farm.epub --prompt prompt_template_sample.txt
 # 或者
-python3 make_book.py --book_name test_books/animal_farm.epub --prompt "Please translate \`{text}\` to {language}"
+python3 make_book.py --book_name testbooks/animal_farm.epub --prompt "Please translate \`{text}\` to {language}"
 # 翻译 kobo e-reader 中，來自 Rakuten Kobo 的书籍
 python3 make_book.py --book_from kobo --device_path /tmp/kobo
 
 # 翻译 txt 文件
-python3 make_book.py --book_name test_books/the_little_prince.txt --test
+python3 make_book.py --book_name testbooks/the_little_prince.txt --test
 # 聚合多行翻译 txt 文件
-python3 make_book.py --book_name test_books/the_little_prince.txt --test --batch_size 20
+python3 make_book.py --book_name testbooks/the_little_prince.txt --test --batch_size 20
 
 
 # 使用彩云小译翻译(彩云api目前只支持: 简体中文 <-> 英文， 简体中文 <-> 日语)
 # 彩云提供了测试token（3975l6lr5pcbvidl6jl2）
 # 你可以参考这个教程申请自己的token (https://bobtranslate.com/service/translate/caiyun.html)
-python3 make_book.py --model caiyun --caiyun_key 3975l6lr5pcbvidl6jl2 --book_name test_books/animal_farm.epub
+python3 make_book.py --model caiyun --caiyun_key 3975l6lr5pcbvidl6jl2 --book_name testbooks/animal_farm.epub
 # 可以在环境变量中设置BBM_CAIYUN_API_KEY，略过--openai_key
 export BBM_CAIYUN_API_KEY=${your_api_key}
 ```

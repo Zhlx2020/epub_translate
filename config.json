@@ -1,0 +1,16 @@
+{
+    "key": "sk-9qGfCGMEwL5t9AoUNbtgJG76jUYNqEgx1516h9rc35SVxRAo",
+    "language": "zh-hans",
+    "api_base": "https://miaogeapi.deno.dev/v1",
+    "model": "openai-reasoning",
+    "temperature": 0.3,
+    "max_retries": 3,
+    "model_pool": [
+        "openai-large",
+        "gemini-2.5-pro",
+        "openai-reasoning",
+        "openai",
+        "glm-4-plus",
+        "Qwen2.5-72B-32K"
+    ]
+}
