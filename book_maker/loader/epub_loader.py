@@ -18,7 +18,6 @@ from book_maker.utils import num_tokens_from_text, prompt_config_to_kwargs
 from .base_loader import BaseBookLoader
 from .helper import EPUBBookLoaderHelper, is_text_link, not_trans
 
-
 class EPUBBookLoader(BaseBookLoader):
     def __init__(
         self,
@@ -223,12 +222,24 @@ class EPUBBookLoader(BaseBookLoader):
                 for pt in temp_p.find_all(p_exclude):
                     pt.extract()
 
+            # ===================== 跳过不需要翻译的段落（特殊内容、链接、ISBN、数字、列表、figure等） ===================== #
             if any(
                 [not p.text, self._is_special_text(temp_p.text), not_trans(temp_p.text)]
             ):
                 if i == len(p_list) - 1:
                     self.helper.deal_old(wait_p_list, self.single_translate)
                 continue
+            # ================================================================================================== #
+
+            # ===================== 跳过属性名以toc开头的p标签 ===================== #
+            if isinstance(p, Tag):
+                for attr in p.attrs:
+                    if str(attr).lower().startswith("toc"):
+                        if i == len(p_list) - 1:
+                            self.helper.deal_old(wait_p_list, self.single_translate)
+                        continue
+            # ===================================================================== #
+
             length = num_tokens_from_text(temp_p.text)
             if length > send_num:
                 self.helper.deal_new(p, wait_p_list, self.single_translate)
@@ -431,9 +442,20 @@ class EPUBBookLoader(BaseBookLoader):
             for p in p_list:
                 if is_test_done:
                     break
-                if not p.text or self._is_special_text(p.text):
+                # ===================== 跳过不需要翻译的段落（特殊内容、链接、ISBN、数字、列表、figure等） ===================== #
+                if not p.text or self._is_special_text(p.text) or not_trans(p.text):
                     pbar.update(1)
                     continue
+                # ================================================================================================== #
+
+                # ===================== 跳过属性名以toc开头的p标签 ===================== #
+                if isinstance(p, Tag):
+                    for attr in p.attrs:
+                        if str(attr).lower().startswith("toc"):
+                            # ----------- 跳过toc属性的p标签，不翻译 -----------
+                            pbar.update(1)
+                            continue
+                # ===================================================================== #
 
                 new_p = self._extract_paragraph(copy(p))
                 if self.single_translate and self.block_size > 0:
@@ -452,7 +474,6 @@ class EPUBBookLoader(BaseBookLoader):
                     index = self._process_paragraph(p, new_p, index, p_to_save_len)
                     print()
 
-                # pbar.update(delta) not pbar.update(index)?
                 pbar.update(1)
 
                 if self.is_test and index >= self.test_num:

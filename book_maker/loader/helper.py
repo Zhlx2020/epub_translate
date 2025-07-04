@@ -17,20 +17,31 @@ class EPUBBookLoaderHelper:
         self.context_flag = context_flag
 
     def insert_trans(self, p, text, translation_style="", single_translate=False):
+        """
+        插入译文：保持原色，仅加竖线和灰底，译文紧跟原文出现。
+        """
+        from bs4 import Tag  # 确保Tag类型可用（如有需要可移到文件头部）
+
         if text is None:
             text = ""
+        # 跳过内容重复
         if (
             p.string is not None
             and p.string.replace(" ", "").strip() == text.replace(" ", "").strip()
         ):
             return
-        new_p = copy(p)
-        new_p.string = text
-        if translation_style != "":
-            new_p["style"] = translation_style
-        p.insert_after(new_p)
+        # 保持原有p，直接插入一个换行和span（竖线+灰底，原色）
+        br = p._parent.new_tag("br") if hasattr(p, "_parent") and p._parent else p.new_tag("br")
+        span = p._parent.new_tag("span") if hasattr(p, "_parent") and p._parent else p.new_tag("span")
+        span['style'] = "background:#f6f6f6;border-left:2px solid #cccccc;padding-left:10px;"
+        span.string = text
+        p.append(br)
+        p.append(span)
+        # 若single_translate模式，移除原文p，仅保留译文
         if single_translate:
-            p.extract()
+            p.string = ""
+            p.clear()
+            p.append(span)
 
     @backoff.on_exception(
         backoff.expo,
